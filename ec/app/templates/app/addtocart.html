@@ -1,0 +1,67 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% block title %}Cart{% endblock title %}
+{% block main-content %}
+<div class="container my-5">
+    <h1 class="text-center mb-5">Carrito de compra</h1>
+    <div class="row">
+        {% if cart %}
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="mb-4">Tu carrito</h3>
+                    {% for item in cart %}
+                    <div class="row mb-4">
+                        <div class="col-md-3 text-center align-self-center">
+                            <img src="{{ item.product.product_image.url }}" alt="{{ item.product.title }}" class="img-fluid rounded shadow" style="max-height: 150px;">
+                        </div>
+                        <div class="col-md-9">
+                            <h5>{{ item.product.title }}</h5>
+                            <p class="text-muted">{{ item.product.description }}</p>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="input-group input-group-sm" style="width: 120px;">
+                                    <button class="btn btn-outline-secondary minus-cart" pid="{{ item.product.id }}">-</button>
+                                    <input type="text" class="form-control text-center" id="quantity-{{ item.product.id }}" value="{{ item.quantity }}" readonly>
+                                    <button class="btn btn-outline-secondary plus-cart" pid="{{ item.product.id }}">+</button>
+                                </div>
+                                <button class="btn btn-danger remove-cart" pid="{{ item.product.id }}"><i class="fas fa-trash-alt"></i> Eliminar</button>
+                            </div>
+                            <p class="mb-0"><strong>Precio: ${{ item.product.discounted_price }}</strong></p>
+                        </div>
+                    </div>
+                    <hr>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="mb-4">Total</h3>
+                    <ul class="list-group mb-3">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Subtotal:
+                            <span class="font-weight-bold">$ {{ amount }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Envío:
+                            <span>$ 40,000.00</span> <!-- Cambiado a un formato numérico -->
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <strong>Total (IVA incluido):</strong>
+                            <span class="font-weight-bold">$ {{ amount|add:40000 }}</span> <!-- Suma del subtotal y el envío -->
+                        </li>
+                    </ul>
+                    <a href="{% url 'checkout' %}" class="btn btn-primary btn-block">Realizar pedido</a>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="col-lg-12">
+            <h1 class="text-center">¡Tu carrito está vacío!</h1>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock main-content %}
