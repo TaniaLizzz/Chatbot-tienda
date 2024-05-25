@@ -16,18 +16,20 @@
                             <img src="{{ item.product.product_image.url }}" alt="{{ item.product.title }}" class="img-fluid rounded shadow" style="max-height: 150px;">
                         </div>
                         <div class="col-md-9">
-                            <h5>{{ item.product.title }}</h5>
-                            <p class="text-muted">{{ item.product.description }}</p>
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <div class="input-group input-group-sm" style="width: 120px;">
-                                    <button class="btn btn-outline-secondary minus-cart" pid="{{ item.product.id }}">-</button>
-                                    <input type="text" class="form-control text-center" id="quantity-{{ item.product.id }}" value="{{ item.quantity }}" readonly>
-                                    <button class="btn btn-outline-secondary plus-cart" pid="{{ item.product.id }}">+</button>
-                                </div>
-                                <button class="btn btn-danger remove-cart" pid="{{ item.product.id }}"><i class="fas fa-trash-alt"></i> Eliminar</button>
+                            <h5> {{item.product.title}}</h5>
+                            <pclass="mb-2 text-muted small"> {{iem.product.description}}</p>
+                            <div class="my-3">
+                                <label for="quantity">Cantidad: </label>
+                                <a class="minus-cart btn" pid= {{item.product.id}}><i class="fas fa-minus-square fa-lg"></i></a>
+                                    <span id="quantity"> {{item.quantity}} </span>
+                                <a class="plus-cart btn" pid= {{item.product.id}}><i class="fas fa-plus-square fa-lg"></i></a>
                             </div>
-                            <p class="mb-0"><strong>Precio: ${{ item.product.discounted_price }}</strong></p>
+                            <div class="d-flex justify-content-between">
+                                <a href="" class="remove-cart btn btn-sm btn-secondary mr-3" pid= {{item.product.id}}>Remove Item </a>
+                                <p class="mb-0"><span><strong>$ {{item.product.discounted_price}}</strong></span></p>
+                            
                         </div>
+                    </div>
                     </div>
                     <hr>
                     {% endfor %}
@@ -35,7 +37,7 @@
             </div>
         </div>
 
-        <div class="col-lg-4">
+        <div class="col-sm-4">
             <div class="card">
                 <div class="card-body">
                     <h3 class="mb-4">Total</h3>
@@ -46,11 +48,11 @@
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             Envío:
-                            <span>$ 40,000.00</span> <!-- Cambiado a un formato numérico -->
+                            <span>$ 40,0</span> <!-- Cambiado a un formato numérico -->
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             <strong>Total (IVA incluido):</strong>
-                            <span class="font-weight-bold">$ {{ amount|add:40000 }}</span> <!-- Suma del subtotal y el envío -->
+                            <span class="font-weight-bold">$ {{ amount|add:40 }}</span> <!-- Suma del subtotal y el envío -->
                         </li>
                     </ul>
                     <a href="{% url 'checkout' %}" class="btn btn-primary btn-block">Realizar pedido</a>

@@ -70,7 +70,7 @@ class Customer(models.Model):
     locality = models.CharField(max_length=200)
     city = models.CharField(max_length=50)
     mobile = models.IntegerField(default=0)
-    zipcode = models.IntegerField()
+    zipcode = models.IntegerField(default=0)
     state = models.CharField(choices=STATE_CHOICES,max_length=100)
     def __str__(self):
         return self.name
@@ -112,4 +112,7 @@ class OrderPlaced(models.Model):
     @property
     def total_cost(self):
         return self.quantity * self.product.discounted_price
-    
+
+class Wishlist(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    product = models.ForeignKey(Product,on_delete=models.CASCADE)

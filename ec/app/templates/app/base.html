@@ -55,9 +55,9 @@
               <a class="nav-link text-white" href="{% url "contact" %}">Contact Us</a>
             </li>
           </ul>
-          <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
-            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit"> Buscar </button>
+          <form class="d-flex" role="search" action="/search">
+            <input class="form-control me-2" type="search" placeholder="Search" name="search" aria-label="Search"/>
+            <button class="btn btn-outline-dark" type="submit"> Buscar </button>
           </form>
         </div>
 
@@ -66,7 +66,7 @@
             <a class="nav-link dropdown-toggle text-white" href="#" id="profileDropdown" role="button" data-toggle="dropdown" aria-expanded="false"> Usuario</a>
             <ul class="dropdown-menu" aria-labelledby="profileDropdown">
               <li><a class="dropdown-item" href="{% url "profile" %}">Perfil</a></li>
-              <li><a class="dropdown-item" href="#">Pedidos</a></li>
+              <li><a class="dropdown-item" href="{% url "orders" %}">Pedidos</a></li>
               <li><a class="dropdown-item" href="{% url "passwordchange" %}">Cambiar Contraseña</a></li>
               <li><form action="{% url 'logout' %}" method="post">
                 {% csrf_token %}
@@ -75,11 +75,17 @@
           </li>
           <li class="nav-item mx-2">
             <a href="{% url 'showcart' %}" class="nav-link text-white">
-              <i class="fas fa-shopping-cart"></i> Carrito
-          </a>
-                    </li>
+                <span class="badge bg-danger">
+                    {% if totalitem > 0 %}
+                        {{ totalitem }}
+                    {% endif %}
+                </span>
+                <i class="fas fa-shopping-cart"></i> Carrito
+            </a>
+        </li>
+        
           <li class="nav-item mx-2">
-            <a href="#" class="nav-link text-white">
+            <a href="{% url "showwishlist" %}" class="nav-link text-white"><span class="badge bg-danger">{% if wishitem > 0 %} {{wishitem}} {% endif %} </span>
               <i class="fas fa-heart"></i> Favorito
           </a>
                     </li>
